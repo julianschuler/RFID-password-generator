@@ -26,7 +26,7 @@ If you have no AVR programmer, set up your Arduino [as ISP](https://www.arduino.
 
 Copy the [modified libraries](../sourcecode/modified-libraries) into your Arduino libraries folder, which can normally be found under Documents/Arduino/libraries
 
-Open the sketch [rfid-password-generator.ino](../sourcecode/rfid-password-generator.ino) with the Arduino IDE and open _File > Preferences_. Paste `http://drazzy.com/package_drazzy.com_index.json` into the _Additional Boards manager URLs_ field near the bottum and click _OK_. To install the ATtiny Core open _Tools > Board > Boards Manager_. Scroll to the bottom, select _ATTinyCore by Spence Konde_ and click on the _Install_ button.
+Open the sketch [rfid-password-generator.ino](../sourcecode/RFID-password-generator/RFID-password-generator.ino) with the Arduino IDE and open _File > Preferences_. Paste `http://drazzy.com/package_drazzy.com_index.json` into the _Additional Boards manager URLs_ field near the bottum and click _OK_. To install the ATtiny Core open _Tools > Board > Boards Manager_. Scroll to the bottom, select _ATTinyCore by Spence Konde_ and click on the _Install_ button.
 
 Go to _Tools_ and select `Board: "ATtiny24/44/84"`, `B.O.D.: "B.O.D. Disabled"`, `LTO (1.6.11+ only): "Disabled"`, `Pin Mapping: "Counterclockwise (like ATTinyCore)"`, `Clock: "12 MHz (external)"`, `Chip "ATtiny84"`, `Port: "COMx"` (`COMx` ist your Arduino port, e. g. `COM3`), `Programmer: "Arduino as ISP"`.
 If you want build the flat version, be sure to uncomment `//#define flatVersion` in the sixth line. Compile and flash the sketch by clicking on the upload button.
