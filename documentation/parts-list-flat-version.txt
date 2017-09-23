@@ -1,0 +1,33 @@
+This is a parts list for the RFID password generator
+
+
+
+Direct links to the components:
+
+ATTINY84A-10MU (Attiny84A in QFN package, main µC):
+http://www.mouser.com/ProductDetail/Microchip-Technology-Atmel/ATTINY84A-MU/?qs=sGAEpiMZZMteY%252blXHTQ5JLlC9bHhNJCW
+
+
+MFRC522 (13.56MHz RFID reader):
+http://www.mouser.com/ProductDetail/NXP-Semiconductors/MFRC52202HN1151/?qs=sGAEpiMZZMvQHWqrh58LgboGEg%252bvG55S2UsP9S4LY8I%3d
+
+
+LD3900PUR (adjustable LDO voltage regulator):
+http://www.mouser.com/ProductDetail/STMicroelectronics/LD39100PUR/?qs=sGAEpiMZZMsGz1a6aV8DcDaRs4%2fHsL9lNyFDJK6FCXY%3d
+
+
+ASDMB-12.000MHZ-LC-T (12Mhz SMD crystal for the Attiny)
+http://http://www.mouser.de/ProductDetail/ABRACON/ASDMB-12000MHZ-LC-T/?qs=sGAEpiMZZMt2Q%252b%2fb08UWmy8MSW%2fPLjzU
+
+
+SG-210STF 27.1200ML3 (27.12MHz SMD crystal for the RFID reader):
+http://www.mouser.com/ProductDetail/Epson-Timing/SG-210STF-271200ML3/?qs=sGAEpiMZZMt8zWNA7msRCrhcg48ZG9oDe4D5dY%252bhKHbXExsVKeSqaw%3d%3d
+
+
+
+
+Complete BOM for copying & pasting it to http://www.mouser.com/bom (you have to be logged in)
+
+ATTINY84A-10MU|1
+
+LD3900PUR|1
