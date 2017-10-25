@@ -10,7 +10,7 @@ This project has two versions, a flat and a normal version. The main difference 
 Keep in mind that the flat version is a lot more complicated to build compared to the normal version due to its tiny SMD parts. Nevertheless, you should have at least experience in SMD soldering and Arduino/ATtiny programming, this isn't a beginner project!
 
 ## Build Instructions
-If you want to rebuild this project, see [`Build Instructions](documentation/build-instructions.md).
+If you want to rebuild this project, see [Build Instructions](documentation/build-instructions.md).
 
 ## References 
 This project includes a modified version of the [MFRC522 library](https://github.com/miguelbalboa/rfid) to function properly with the ATtiny84.
@@ -18,10 +18,8 @@ This project includes a modified version of the [MFRC522 library](https://github
 ## Licenses
 All files of this project except the pcb and schematic files are licensed under MIT License (see [`LICENSE.txt`](LICENSE.txt) for further information). These pcb and schematic files are licensed under [Creative Commons Attribution Share Alike 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
-## Todo
+## To-do
 - add connection diagrams
-- fix extra key bug
-- add Caps Lock detection
 - create PCB files for the flat version
 - create a parts list for the normal version
 
