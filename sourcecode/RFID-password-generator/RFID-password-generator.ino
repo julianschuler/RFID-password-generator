@@ -3,23 +3,21 @@
 #include <EEPROM.h>
 #include <avr/wdt.h>
 
-//#define flatVersion
-#define useWDT
+#define flatVersion					0 // set this to 1 when using the flat version
+#define useWDT						0 // set this to 1 to enable the watch dog timer
 
 #define passwordLength          	46
 #define RFIDTagLength           	4
 #define keyLength               	8
-#define EEPROMSize              	512  //neccessary, getting it over EEPROM.length() won't work
+#define EEPROMSize              	512 //neccessary, getting it over EEPROM.length() won't work
 #define maxPasswords            	(EEPROMSize-1-RFIDTagLength) / (passwordLength+RFIDTagLength)
 #define buttonTimePressedLong   	3000
 #define connectionTimeHost      	10000
 #define buttonBit               	3
-#define buttonRead()            	(PINA>>buttonBit&1) //digitalRead(7)
-#define buttonModeINPUT_PULLUP()	DDRA &= ~(1<<buttonBit); PORTA |= 1<<buttonBit  //pinMode(7, INPUT_PULLUP)
-//#define enableINT0()            	EIMSK |= 1<<INT0
-//#define disableINT0()           	EIMSK &= ~(1<<INT0)
+#define buttonRead()            	(PINA>>buttonBit&1)
+#define buttonModeINPUT_PULLUP()	DDRA &= ~(1<<buttonBit); PORTA |= 1<<buttonBit
 
-#ifdef flatVersion
+#if flatVersion
 MFRC522 RFID(10, 3);
 #else
 MFRC522 RFID(10, 255);
@@ -55,7 +53,7 @@ void setup() {
 	//Serial.begin(9600);
 	SPI.begin();
 	RFID.PCD_Init();
-	#ifdef useWDT
+	#if useWDT
 		wdt_enable(WDTO_60MS);
 	#endif
 }
@@ -108,7 +106,7 @@ void loop() {
 				for (uint8_t j = 0; j < RFIDTagLength; j++) {
 					RFIDTagMaster[j] = RFID.uid.uidByte[j];
 					EEPROM.write(j + 1, RFIDTagMaster[j]);
-					#ifdef useWDT
+					#if useWDT
 						wdt_reset();
 					#endif
 				}
@@ -123,7 +121,7 @@ void loop() {
 		for (uint16_t i = 0; i < 255; i++) {
 			UsbKeyboard.update();
 			delayMicroseconds(20000);
-			#ifdef useWDT
+			#if useWDT
 				wdt_reset();
 			#endif
 		}
@@ -142,7 +140,7 @@ void sendPassword(uint8_t index) {
 		UsbKeyboard.sendKeyStroke(data % 36 + 4, (data / 36) * 2);
 		//Serial.print(data, DEC);
 		//Serial.print(' ');
-		#ifdef useWDT
+		#if useWDT
 			wdt_reset();
 		#endif
 	}
@@ -158,7 +156,7 @@ void changePassword(uint8_t index) {
 		UsbKeyboard.sendKeyStroke(data % 36 + 4, (data / 36) * 2);
 		//Serial.print(data, DEC);
 		//Serial.print(' ');
-		#ifdef useWDT
+		#if useWDT
 			wdt_reset();
 		#endif
 	}
@@ -175,7 +173,7 @@ void addPassword() {
 			//Serial.print(passwordCount * (passwordLength+RFIDTagLength) + RFIDTagLength + i+1);
 			//Serial.print(' ');
 			EEPROM.write(passwordCount * (passwordLength + RFIDTagLength) + i + RFIDTagLength + 1, RFIDTags[passwordCount][i]);
-			#ifdef useWDT
+			#if useWDT
 				wdt_reset();
 			#endif
 		}
@@ -186,8 +184,8 @@ void addPassword() {
 			UsbKeyboard.sendKeyStroke(data % 36 + 4, (data / 36) * 2);
 			//Serial.print(data, DEC);
 			//Serial.print(' ');
-			#ifdef useWDT
-				wdt_reset();
+			#if useWDT
+			wdt_reset();
 			#endif
 		}
 		//Serial.println("");
@@ -196,11 +194,12 @@ void addPassword() {
 	}
 }
 
-
+/*
 void printHex(uint8_t *buffer, uint8_t bufferSize) {
 	for (uint8_t i = 0; i < bufferSize; i++) {
-		//Serial.print(buffer[i] < 0x10 ? " 0" : " ");
-		//Serial.print(buffer[i], HEX);
+		Serial.print(buffer[i] < 0x10 ? " 0" : " ");
+		Serial.print(buffer[i], HEX);
 	}
-	//Serial.println("");
+	Serial.println("");
 }
+*/
