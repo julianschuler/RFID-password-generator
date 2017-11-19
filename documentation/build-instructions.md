@@ -25,7 +25,7 @@ If you have no AVR programmer, set up your Arduino [as ISP](https://www.arduino.
 
 [need to add connection diagrams here]
 
-Copy the [modified MFCR522 library](../sourcecode/modified-libraries) and the [USBKeyboard library](https://github.com/julianschuler/USBKeyboard) into your Arduino libraries folder, which can normally be found under Documents/Arduino/libraries
+Copy the [USBKeyboard library](https://github.com/julianschuler/USBKeyboard) into your Arduino libraries folder, which can normally be found under Documents/Arduino/libraries
 
 Open the sketch [`rfid-password-generator.ino`](../sourcecode/RFID-password-generator/RFID-password-generator.ino) with the Arduino IDE and open _File > Preferences_. Paste `http://drazzy.com/package_drazzy.com_index.json` into the _Additional Boards manager URLs_ field near the bottum and click _OK_. To install the ATtiny Core open _Tools > Board > Boards Manager_. Scroll to the bottom, select _ATTinyCore by Spence Konde_ and click on the _Install_ button.
 

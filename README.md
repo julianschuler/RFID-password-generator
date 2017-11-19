@@ -12,9 +12,6 @@ Keep in mind that the flat version is a lot more complicated to build compared t
 ## Build Instructions
 If you want to rebuild this project, see [Build Instructions](documentation/build-instructions.md).
 
-## References 
-This project includes a modified version of the [MFRC522 library](https://github.com/miguelbalboa/rfid) to function properly with the ATtiny84.
-
 ## Licenses
 All files of this project except the pcb and schematic files are licensed under MIT License (see [`LICENSE.txt`](LICENSE.txt) for further information). These pcb and schematic files are licensed under [Creative Commons Attribution Share Alike 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
