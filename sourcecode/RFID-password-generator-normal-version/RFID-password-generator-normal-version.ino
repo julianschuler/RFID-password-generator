@@ -4,8 +4,8 @@
 
 
 #define printInformation				1 // set this to 1 to enable feedback for e. g. changing passwords
-#define useWDT							0 // set this to 1 to enable the watch dog timer
 #define Debug							0 // set this to 1 to enable Debug
+#define useWDT							0 // set this to 1 to enable the watch dog timer
 
 #define EN								0
 #define DE								1
@@ -40,45 +40,50 @@
 	#include <SoftwareSerial.h>
 	
 	#define TINY_SPI
-	#define SPI_begin					TinySPI_begin
-	#define SPI_transfer				TinySPI_transfer
-	#define SPI_beginTransaction		uint8_t // empty
-	#define SPI_endTransaction			uint8_t // empty
+	#define SPI_begin()					TinySPI_begin()
+	#define SPI_transfer(b)				TinySPI_transfer(b)
+	#define SPI_beginTransaction(s)
+	#define SPI_endTransaction()
 	
 	#define ButtonPort					A
 	#define ButtonBit					3
 	
 	#if defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__)
 		#define SPIPort					A
-		#define CS						4
+		#define CS						3
 		#define DI						0
 		#define DO						1
 		#define USCK					2
+		#define TX						4
 	#elif defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
 		#define SPIPort					A
 		#define CS						3
 		#define DI						6
 		#define DO						5
 		#define USCK					4
+		#define TX						7
 	#elif defined(__AVR_ATtiny2313__) || defined(__AVR_ATtiny4313__)
 		#define SPIPort					B
 		#define CS						4
 		#define DI						5
 		#define DO						6
 		#define USCK					7
+		#define TX						3
 	#endif
 	
 	#if Debug
 		// connect D3 to the RX pin of an UART interface (e. g. an Arduino with Reset connected to GND), leave TX not connected
-		SoftwareSerial mSerial(255, 3);
+		SoftwareSerial mSerial(255, TX);
+		#define usbDeviceConnect()
+		#define usbDeviceDisconnect()
 	#endif
 #else
 	#include <SPI.h>
 	
-	#define SPI_begin					SPI.begin
-	#define SPI_transfer				SPI.transfer
-	#define SPI_beginTransaction		SPI.beginTransaction
-	#define SPI_endTransaction			SPI.endTransaction
+	#define SPI_begin()					SPI.begin()
+	#define SPI_transfer(b)				SPI.transfer(b)
+	#define SPI_beginTransaction(s)		SPI.beginTransaction(s)
+	#define SPI_endTransaction()		SPI.endTransaction()
 	#define mSerial						Serial
 	
 	#define SPIPort						B
@@ -89,15 +94,13 @@
 	SPISettings spiSettings = SPISettings(SPI_CLOCK_DIV4, MSBFIRST, SPI_MODE0);
 #endif
 
-#define usbDeviceConnect()
-#define usbDeviceDisconnect()
-
 #define conc(a, b)						(a ## b)
 #define concat(a, b)					conc(a, b) //double define allows concatenante strings defined by macros
 
 #define RFIDTagLength					4
 #define EEPROMSize						512
 #define passwordLength					(EEPROMSize-1-RFIDTagLength) / maxPasswords - RFIDTagLength
+
 #define directRead(port, bit)			(concat(PIN, port) >> bit & 1)
 #define directMode(port, bit, mode)		(mode) ? concat(DDR, port) |= 1 << bit : concat(DDR, port) &= ~(1 << bit)
 #define directWrite(port, bit, state)	(state) ? concat(PORT, port) |= 1 << bit : concat(PORT, port) &= ~(1 << bit)
