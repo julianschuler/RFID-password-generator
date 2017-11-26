@@ -45,8 +45,8 @@
 	#define SPI_beginTransaction(s)
 	#define SPI_endTransaction()
 	
-	#define ButtonPort					A
-	#define ButtonBit					3
+	#define ButtonpinPort					A
+	#define ButtonpinBit					3
 	
 	#if defined(__AVR_ATtiny25__) || defined(__AVR_ATtiny45__) || defined(__AVR_ATtiny85__)
 		#define SPIPort					A
@@ -57,7 +57,7 @@
 		#define TX						4
 	#elif defined(__AVR_ATtiny24__) || defined(__AVR_ATtiny44__) || defined(__AVR_ATtiny84__)
 		#define SPIPort					A
-		#define CS						3
+		#define CS						0
 		#define DI						6
 		#define DO						5
 		#define USCK					4
@@ -88,8 +88,8 @@
 	
 	#define SPIPort						B
 	#define CS							1
-	#define ButtonPort					D
-	#define ButtonBit					5
+	#define ButtonpinPort					D
+	#define ButtonpinBit					5
 	
 	SPISettings spiSettings = SPISettings(SPI_CLOCK_DIV4, MSBFIRST, SPI_MODE0);
 #endif
@@ -97,13 +97,13 @@
 #define conc(a, b)						(a ## b)
 #define concat(a, b)					conc(a, b) //double define allows concatenante strings defined by macros
 
-#define RFIDTagLength					4
-#define EEPROMSize						512
-#define passwordLength					(EEPROMSize-1-RFIDTagLength) / maxPasswords - RFIDTagLength
-
 #define directRead(port, bit)			(concat(PIN, port) >> bit & 1)
 #define directMode(port, bit, mode)		(mode) ? concat(DDR, port) |= 1 << bit : concat(DDR, port) &= ~(1 << bit)
 #define directWrite(port, bit, state)	(state) ? concat(PORT, port) |= 1 << bit : concat(PORT, port) &= ~(1 << bit)
+
+#define RFIDTagLength					4
+#define EEPROMSize						512
+#define passwordLength					(EEPROMSize-1-RFIDTagLength) / maxPasswords - RFIDTagLength
 
 #define PICC_CMD_REQA					0x26
 #define PICC_CMD_HLTA					0x50
@@ -150,8 +150,8 @@ uint8_t uid[4];
 
 void setup() {
 	TIMSK0 = 0;
-	directMode(ButtonPort, ButtonBit, INPUT);
-	directWrite(ButtonPort, ButtonBit, HIGH);
+	directMode(ButtonpinPort, ButtonpinBit, INPUT);
+	directWrite(ButtonpinPort, ButtonpinBit, HIGH);
 	randomSeed(randomKey);
 	passwordCount = EEPROM.read(0);
 	if (passwordCount != 255) {
@@ -187,7 +187,7 @@ void loop() {
 		mSerial.println();
 		#endif
 		if (passwordCount == 255) {
-			if (directRead(ButtonPort, ButtonBit) == LOW) {
+			if (directRead(ButtonpinPort, ButtonpinBit) == LOW) {
 				passwordCount = 0;
 				#if Debug
 				mSerial.println("Set master tag");
@@ -214,7 +214,7 @@ void loop() {
 				}
 			}
 			if (knownRFIDTag) {
-				if (directRead(ButtonPort, ButtonBit) == LOW) {
+				if (directRead(ButtonpinPort, ButtonpinBit) == LOW) {
 					for (uint16_t i = RFIDTagLength + 1; i < EEPROMSize; i++) {
 						EEPROM.write(i, 255);
 					}
@@ -237,7 +237,7 @@ void loop() {
 					}
 				}
 				if (knownRFIDTag) {
-					if (directRead(ButtonPort, ButtonBit) == LOW) {
+					if (directRead(ButtonpinPort, ButtonpinBit) == LOW) {
 						ChangePassword(i);
 					}
 					else {
@@ -246,7 +246,7 @@ void loop() {
 				}
 			}
 			
-			if (!knownRFIDTag && directRead(ButtonPort, ButtonBit) == LOW) {
+			if (!knownRFIDTag && directRead(ButtonpinPort, ButtonpinBit) == LOW) {
 				AddRFIDTag();
 			}
 		}
