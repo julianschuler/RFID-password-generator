@@ -1,4 +1,6 @@
 # RFID password generator
+#### Note: This project is just for reference and won't be continued, a similar approach without the RFID interface can be found in the more recent [USB password manager project](https://github.com/julianschuler/USB-password-manager). The reason for the discontination of this project is the minuscule added security in comparison to the extra effort of using a RFID interface for authentification. Furthermore a password manager is an easier and more secure way of generating and storing cryptographically strong passwords, see the [security evaluations section](https://github.com/julianschuler/USB-password-manager#Security-evalutaions) of the USB password manager project.
+
 ## Introduction
 The RFID password generator is a simple way to generate cryptographic passwords and save them in hardware, only accessable with the right RFID tag.
 
@@ -15,9 +17,7 @@ If you want to rebuild this project, see [Build Instructions](documentation/buil
 ## Licenses
 All files of this project except the pcb and schematic files are licensed under MIT License (see [`LICENSE.txt`](LICENSE.txt) for further information). These pcb and schematic files are licensed under [Creative Commons Attribution Share Alike 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
-## To-do
+## To do
 - add connection diagrams
 - create PCB files for the flat version
 - create a parts list for the normal version
-
-##### Note: this isn't a finished project yet, not all listed features are already included!
